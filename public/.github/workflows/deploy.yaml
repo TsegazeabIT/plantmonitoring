@@ -1,0 +1,16 @@
+name: Deploy Application
+on:
+  push:
+    branches:
+    - main
+jobs:
+  cretae-deployment-artifacts:
+    name: create deployment artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Compile CSS and Javascript
+        run: |
+          npm install
+          npm run build
