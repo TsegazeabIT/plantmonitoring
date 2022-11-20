@@ -30,12 +30,12 @@ class PlantController extends Controller
       $phosphorus = number_format($response['V4'],2);
       $potassium = number_format($response['V5'],2);
     //   Temperature checking for min and max values
-      if(10.00 < $temperature && $temperature < 40.00)
+      if(10.00 < $temperature && $temperature < 24.00)
       {
         $MaxTemp = false;
         $MinTemp =false;
       }
-      elseif($temperature > 40.00)
+      elseif($temperature > 24.00)
       {
         $MaxTemp = true;
       }
@@ -46,7 +46,7 @@ class PlantController extends Controller
       }
 
     //   Humidity checking for min and max values
-      if(10.00 < $humidity && $humidity < 80.00)
+      if(20.00 < $humidity && $humidity < 80.00)
       {
         $MaxHum = false;
         $MinHum =false;
@@ -56,7 +56,7 @@ class PlantController extends Controller
         $MaxHum = true;
         $MinHum = false;
       }
-      elseif($humidity < 10.00)
+      elseif($humidity < 20.00)
       {
         $MaxHum = false;
         $MinHum = true;
