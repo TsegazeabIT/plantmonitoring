@@ -29,17 +29,26 @@ class PlantController extends Controller
       $nitrogen = number_format($response['V3'],2);
       $phosphorus = number_format($response['V4'],2);
       $potassium = number_format($response['V5'],2);
+
+    // Testing scenarios
+    //  $temperature = 0.00;
+    //  $humidity = 90.00;
+    //  $moisture = 80.00;
+    //  $nitrogen = 1999;
+    //  $phosphorus = 1999;
+    //  $potassium = 1999;
     //   Temperature checking for min and max values
       if(10.00 < $temperature && $temperature < 24.00)
       {
         $MaxTemp = false;
-        $MinTemp =false;
+        $MinTemp = false;
       }
       elseif($temperature > 24.00)
       {
         $MaxTemp = true;
+        $MinTemp = false;
       }
-      elseif($temperature < 10.00)
+      else
       {
         $MaxTemp = false;
         $MinTemp = true;
@@ -56,7 +65,7 @@ class PlantController extends Controller
         $MaxHum = true;
         $MinHum = false;
       }
-      elseif($humidity < 20.00)
+      else
       {
         $MaxHum = false;
         $MinHum = true;
@@ -72,57 +81,57 @@ class PlantController extends Controller
         $MaxMois = true;
         $MinMois = false;
       }
-      elseif($moisture < 20.00)
+      else
       {
         $MaxMois = false;
         $MinMois = true;
       }
 
       //   Nitrogen content checking for min and max values
-      if(10.00 < $nitrogen && $nitrogen < 40.00)
+      if(20.00 < $nitrogen && $nitrogen < 80.00)
       {
         $MaxNit = false;
         $MinNit =false;
       }
-      elseif($nitrogen > 40.00)
+      elseif($nitrogen > 80.00)
       {
         $MaxNit = true;
         $MinNit = false;
       }
-      elseif($nitrogen < 10.00)
+      else
       {
         $MaxNit = false;
         $MinNit = true;
       }
        //   Phosphorus content checking for min and max values
-       if(10.00 < $phosphorus && $phosphorus < 40.00)
+       if(25.00 < $phosphorus && $phosphorus < 50.00)
        {
          $MaxPho = false;
-         $MinPho =false;
+         $MinPho = false;
        }
-       elseif($phosphorus > 40.00)
+       elseif($phosphorus > 50.00)
        {
          $MaxPho = true;
          $MinPho = false;
        }
-       elseif($phosphorus < 10.00)
+       else
        {
          $MaxPho = false;
          $MinPho = true;
        }
 
        //   Potassium content checking for min and max values
-       if(10.00 < $potassium && $potassium < 40.00)
+       if(40.00 < $potassium && $potassium < 80.00)
        {
          $MaxPot = false;
-         $MinPot =false;
+         $MinPot = false;
        }
-       elseif($potassium > 40.00)
+       elseif($potassium > 80.00)
        {
          $MaxPot = true;
          $MinPot = false;
        }
-       elseif($potassium < 10.00)
+       else
        {
          $MaxPot = false;
          $MinPot = true;
@@ -131,7 +140,13 @@ class PlantController extends Controller
        return view('dashboard')->with([
         'temperature'=>$temperature,'humidity'=>$humidity, 
         'moisture'=>$moisture,'nitrogen'=>$nitrogen,
-        'phosphorus'=>$phosphorus,'potassium'=>$potassium]);
+        'phosphorus'=>$phosphorus,'potassium'=>$potassium, 
+        'MaxTemp'=>$MaxTemp, 'MinTemp'=>$MinTemp,
+        'MaxHum'=>$MaxHum,'MinHum'=>$MinHum,
+        'MaxMois'=>$MaxMois,'MinMois'=>$MinMois,
+        'MaxNit'=>$MaxNit,'MinNit'=>$MinNit,
+        'MaxPho'=>$MaxPho,'MinPho'=>$MinPho,
+        'MaxPot'=>$MaxPot,'MinPot'=>$MinPot]);
     }
     // public function getTemperature()
     // {

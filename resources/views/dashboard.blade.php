@@ -21,177 +21,270 @@
         body {
             font-family: 'Nunito', sans-serif;
         }
+        .blink{
+            animation: blink 2s linear infinite;
+            color: red;
+            transform: translate(-50%,-50%)
+        }
+        .blinker{
+            animation: blink 2s linear infinite;
+            color: black;
+            transform: translate(-50%,-50%)
+        }
+        @keyframes blink{
+            0%{opacity:0;}
+            50%{opacity:.5;}
+            100%{opacity:1;}
+        }
+        @keyframes blinker{
+            0%{opacity:0;}
+            50%{opacity:.5;}
+            100%{opacity:1;}
+        }
     </style>
 </head>
 
 <body>
     <!-- Main display board -->
-    <h1 class="mt-24 text-center text-xl font-bold">Welcome To Indoor Plant Health Monitoring Dashboard</h1>
-    <div class="p-16 mx-32 mt-2 bg-blue-500 rounded-xl">
-        <!-- Main parameters display -->
+    <h1 class="mt-16 mb-8 text-center text-xl font-bold">Welcome To Indoor Plant Health Monitoring Dashboard</h1>
+    <div class="columns-2 flex flex-row">
+        <div class="p-16 my-4 bg-blue-500 rounded-xl ml-16">
+            <!-- Main parameters display -->
+            <div class="my-5 text-gray-200 rounded-full border border-gray-200 w-full p-3 text-center">
+                Plant Health Parameters
+            </div>
+            <div class="columns-3 flex flex-row justify-between text-center">
+                <!-- Temperature Display -->
+                <div class="mx-2">
+                    <h1 class="font-bold text-sm">
+                        Ambient Temperature <br> (0C)
+                    </h1>
+                    <div class="w-36 h-24 min-w-60 rounded-xl border border-gray-200 p-4 bg-green-600">
+                        <p class="text-wrap text-gray-200 ">{{$temperature}}</p>
+                    </div>
+                </div>
+                <!-- Humidity Display -->
+                <div class="mx-2">
+                    <h1 class="font-bold text-sm">
+                        Ambient Humidity <br> (%RH)
+                    </h1>
+                    <div class="w-36 h-24 min-w-60 rounded-xl border border-gray-200 p-4 bg-blue-800">
+                        <p class="text-wrap text-gray-200">{{$humidity}}</p>
+                    </div>
+                </div>
+                <!-- Moisture Display -->
+                <div class="mx-2">
+                    <h1 class="font-bold text-sm">
+                        Soil Moisture <br> (%RH)
+                    </h1>
+                    <div class="w-36 h-24 min-w-60 rounded-xl border border-gray-200 p-4 bg-gray-500">
+                        <p class="text-wrap text-gray-200">{{$moisture}}</p>
+                    </div>
+                </div>
+            </div>
 
-        <div class="my-5 text-gray-200 rounded-full border border-gray-200 w-full p-3 text-center">
-            Plant Health Parameters
+            <!-- NPK Parameters display -->
+
+            <div class="my-5 text-gray-200 rounded-full border border-gray-200 w-full p-3 text-center ">
+                Soil Nitrogen-Phosphorus-Potassium (NPK) Contents
+            </div>
+            <!-- Nitrogen Display -->
+            <div class="columns-3 flex flex-row justify-between text-center mb-6">
+                <div class="mx-2">
+                    <h1 class="font-bold text-sm">
+                        N(mg/Kg)
+                    </h1>
+                    <div class="w-36 h-24 min-w-60 rounded-xl border border-gray-200 p-4 bg-gray-600">
+                        <p class="text-wrap text-gray-200">{{$nitrogen}}</p>
+                    </div>
+                </div>
+                <!-- Phosphorus Display -->
+                <div class="mx-2">
+                    <h1 class="font-bold text-sm">
+                        P(mg/Kg)
+                    </h1>
+                    <div class="w-36 h-24 min-w-60 rounded-xl border border-gray-200 p-4 bg-gray-400">
+                        <p class="text-wrap text-gray-200">{{$phosphorus}}</p>
+                    </div>
+                </div>
+                <!-- Potassium Display -->
+                <div class="mx-2">
+                    <h1 class="font-bold text-sm">
+                        K(mg/Kg)
+                    </h1>
+                    <div class="w-36 h-24 min-w-60 rounded-xl border border-gray-200 p-4 bg-amber-600">
+                        <p class="text-wrap text-gray-200">{{$potassium}}</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="my-5 text-gray-200 rounded-full border border-gray-200 w-full p-3 text-center ">
+                User Settings For Optimum Parameters
+            </div>
+            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div class="mb-4">
+                  <label class="text-gray-700 text-sm font-bold mb-2" for="MaxTemp">
+                    Max Temperature (<sup>0</sup>C)
+                  </label>
+                  <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="MaxTemp" type="text" placeholder="Max Temp">
+                </div>
+                <div class="mb-4">
+                  <label class="text-gray-700 text-sm font-bold mb-2" for="MinTemp">
+                    Min Temperature (<sup>0</sup>C)
+                  </label>
+                  <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="MinTemp" type="text" placeholder="Min Temp">
+                </div>
+                <div class="mb-4">
+                <label class="text-gray-700 text-sm font-bold mb-2" for="MaxHum">
+                    Max Humidity (%RH)
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="MaxHum" type="text" placeholder="Max Humidity">
+                </div>
+                <div class="mb-4">
+                <label class="text-gray-700 text-sm font-bold mb-2" for="MinMin">
+                    Min Humidity (%RH)
+                </label>
+                <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="MinHum" type="text" placeholder="Min Humidity">
+                </div>
+                <div class="mb-4">
+                <label class="text-gray-700 text-sm font-bold mb-2" for="MaxMois">
+                    Max Soil Moisture (%RH)
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="MaxMois" type="text" placeholder="Max Moisture">
+                </div>
+                <div class="mb-4">
+                <label class="text-gray-700 text-sm font-bold mb-2" for="MinMois">
+                    Min Soil Moisture (%RH)
+                </label>
+                <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="MinMois" type="text" placeholder="Min Moisture">
+                </div>
+                <div class="flex items-center justify-between">
+                  <button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                    Update
+                  </button>
+                </div>
+              </form>
         </div>
-        <div class="flex flex-row justify-between text-center">
-            <!-- Temperature Display -->
-            <div>
-                <h1 class="font-bold">
-                    Ambient Temperature (0C)
-                </h1>
-                <div class="w-48 h-24 min-w-64 rounded-xl border border-gray-200 p-4 bg-green-600">
-                    <p class="text-wrap text-gray-200 ">{{$temperature}}</p>
-                </div>
+    
+        <!-- Alerts display borad -->
+        <div class="p-16 my-4 bg-blue-500 rounded-xl mr-16 ml-4">
+            <div class="mt-5 p-3 text-gray-200 bg-blue-500 rounded-full border border-gray-200 w-full  text-center">
+               Make sure dashboard is clear of any alert for proper plant health!
             </div>
-            <!-- Humidity Display -->
-            <div>
-                <h1 class="font-bold">
-                    Ambient Humidity (%RH)
-                </h1>
-                <div class="w-48 h-24 min-w-64 rounded-xl border border-gray-200 p-4 bg-blue-800">
-                    <p class="text-wrap text-gray-200">{{$humidity}}</p>
+            <!-- Alert Indicators container -->
+            <div class="flex justify-between align-items-center p-5 bg-blue-500">
+                @if($MaxTemp==false && $MaxHum==false && $MaxMois==false && $MaxNit==false && $MaxPho==false && $MaxPot==false && $MinTemp==false && $MinHum==false && $MinMois==false && $MinNit==false && $MinPho==false && $MinPot==false)
+                    <h1 class="font-bold my-2">Plant is in safety with no operational limits</h1>
+                @endif
+                <!-- Maximum and Minimum alerts container -->
+                <div class="p-5 flex flex-col h-full justify-content-between">
+                    
+                    @if($MaxTemp==true || $MaxHum==true || $MaxMois==true || $MaxNit==true || $MaxPho==true || $MaxPot==true)
+                        <h1 class="font-bold my-2 text-center"><span class="blink"><em>ALERT!</em></span> Maximum Limits Reached!</h1>
+                    @endif
+                
+                    <!-- Max To Circle -->
+                    @if($MaxTemp==true)
+                        <div
+                            class="bg-red-700 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
+                            <div class="absolute top-10 w-full h-full text-sm">Temperature <br> <span class="blinker">{{$temperature}} <em><sup>0</sup>C</em></span></div>
+                        </div>
+                    @endif
+                    <!-- Max %RH Circle -->
+                    @if($MaxHum==true)
+                        <div
+                            class="bg-red-700 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
+                            <div class="absolute top-10 w-full h-full text-sm">Humidty <br> <span class="blinker"><em>{{$humidity}} %RH </em></span></div>
+                        </div>
+                    @endif
+                    <!-- Max Soil Moisture Circle -->
+                    @if($MaxMois==true)
+                        <div
+                            class="bg-red-700 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
+                            <div class="absolute top-10 w-full h-full text-sm">Soil Moisture <br> <span class="blinker"><em>{{$moisture}}%</em></span></div>
+                        </div>
+                    @endif
+                    <!-- Max Nitrogen Circle -->
+                    @if($MaxNit==true)
+                        <div
+                            class="bg-red-700 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
+                            <div class="absolute top-10 w-full h-full text-sm">Nitrogen <br> <span class="blinker"><em>{{$nitrogen}}</em></span></div>
+                        </div>
+                    @endif
+                    <!-- Max Phosphorus Circle -->
+                    @if($MaxPho==true)
+                        <div
+                            class="bg-red-700 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
+                            <div class="absolute top-10 w-full h-full text-sm">Phosphorus<br> <span class="blinker"><em>{{$phosphorus}}</em></span> </div>
+                        </div>
+                    @endif
+                    <!-- Max Potassium Circle -->
+                    @if($MaxPot==true)
+                        <div
+                            class="bg-red-700 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
+                            <div class="absolute top-10 w-full h-full text-sm">Potassium <br> <span class="blinker"><em>{{$potassium}}</em></span> </div>
+                        </div>
+                    @endif
                 </div>
-            </div>
-            <!-- Moisture Display -->
-            <div>
-                <h1 class="font-bold">
-                    Soil Moisture (%RH)
-                </h1>
-                <div class="w-48 h-24 min-w-64 rounded-xl border border-gray-200 p-4 bg-gray-500">
-                    <p class="text-wrap text-gray-200">{{$moisture}}</p>
-                </div>
-            </div>
-        </div>
+                <div class="p-5 flex flex-col h-full justify-content-between text-wrap text-center align-items-right">
+                    @if($MinTemp==true || $MinHum==true || $MinMois==true || $MinNit==true || $MinPho==true || $MinPot==true)
+                    <h1 class="font-bold my-2 text-center"><span class="blink"><em>ALERT!</em></span> Minimum Limits Reached!</h1>
+                    @endif
+                    <!-- Min To Circle -->
+                    @if($MinTemp==true)
+                        <div
+                            class="bg-yellow-400 my-3 relative overflow-hidden h-28 w-28 align-middle rounded-full border border-gray-200">
+                            <div class="absolute top-10 w-full h-full text-sm">Temperature <br> <span class="blinker"><em>{{$temperature}} <sup>0</sup>C</em></span> </div>
+                        </div>
+                    @endif
+                    <!-- Min %RH Circle -->
+                    @if($MinHum==true)
+                        <div
+                            class="bg-yellow-400 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
+                            <div class="absolute top-10 w-full h-full text-sm">Humidity <br> <span class="blinker"><em>{{$humidity}} %RH </em></span></div>
+                        </div>
+                    @endif
 
-        <!-- NPK Parameters display -->
+                    <!-- Min Soil Moisture Circle -->
+                    @if($MinMois==true)
+                        <div
+                            class="bg-yellow-400 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
+                            <div class="absolute top-10 w-full h-full text-sm">Soil Moisture <br> <span class="blinker"><em>{{$moisture}} %</em></span> </div>
+                        </div>
+                    @endif
 
-        <div class="my-5 text-gray-200 rounded-full border border-gray-200 w-full p-3 text-center ">
-            Soil Nitrogen-Phosphorus-Potassium (NPK) Contents
-        </div>
-        <!-- Nitrogen Display -->
-        <div class="flex flex-row justify-between text-center">
-            <div>
-                <h1 class="font-bold">
-                    N(mg/Kg)
-                </h1>
-                <div class="w-48 h-24 min-w-64 rounded-xl border border-gray-200 p-4 bg-gray-600">
-                    <p class="text-wrap text-gray-200">{{$nitrogen}}</p>
-                </div>
-            </div>
-            <!-- Phosphorus Display -->
-            <div>
-                <h1 class="font-bold">
-                    P(mg/Kg)
-                </h1>
-                <div class="w-48 h-24 min-w-64 rounded-xl border border-gray-200 p-4 bg-gray-400">
-                    <p class="text-wrap text-gray-200">{{$phosphorus}}</p>
-                </div>
-            </div>
-            <!-- Potassium Display -->
-            <div>
-                <h1 class="font-bold">
-                    K(mg/Kg)
-                </h1>
-                <div class="w-48 h-24 min-w-64 rounded-xl border border-gray-200 p-4 bg-amber-600">
-                    <p class="text-wrap text-gray-200">{{$potassium}}</p>
-                </div>
-            </div>
-        </div>
+                    <!-- Min Nitrogen Circle -->
+                    @if($MinNit==true)
+                        <div
+                            class="bg-yellow-400 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
+                            <div class="absolute top-10 w-full h-full text-sm">Nitrogen <br> <span class="blinker"><em>{{$nitrogen}}</em></span> </div>
+                        </div>
+                    @endif
 
-    </div>
-    </div>
-    </div>
+                    <!-- Min Phosphorus Circle -->
+                    @if($MinPho==true)
+                        <div
+                            class="bg-yellow-400 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
+                            <div class="absolute top-10 w-full h-full text-sm">Phosphorus <br> <span class="blinker"><em>{{$phosphorus}}</em></span></div>
+                        </div>
+                    @endif
 
-    <!-- Alerts display borad -->
+                    <!-- Min Potassium Circle -->
+                    @if($MinPot==true)
+                        <div
+                            class="bg-yellow-400 my-3 overflow-hidden h-28 w-28 text-center relative rounded-full border border-gray-200">
+                            <div class="absolute top-10 w-full h-full text-sm">Postassium <br><span class="blinker"><em>{{$potassium}}</em></span> </div>
+                        </div>
+                    @endif
 
-    <div class="p-16 mx-32">
-        <div class="mt-5 p-3 text-gray-200 bg-blue-500 rounded-full border border-gray-200 w-full  text-center">
-            Alerts and Notification Board
-        </div>
-
-        <!-- Alert Indicators container -->
-        <div class="mx-32 flex justify-between align-items-center mx-12 p-5 bg-blue-500">
-            <!-- Maximum and Minimum alerts container -->
-            <div class="p-5 flex flex-col h-full justify-content-between">
-                <h1 class="font-bold my-2">Maximum Values</h1>
-
-                <!-- Max To Circle -->
-                <div
-                    class="bg-red-700 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
-                    <div class="absolute top-10 w-full h-full text-sm">Max To</div>
                 </div>
-                <!-- Max %RH Circle -->
-                <div
-                    class="bg-red-700 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
-                    <div class="absolute top-10 w-full h-full text-sm">Max % RH </div>
-                </div>
-                <!-- Max Soil Moisture Circle -->
-                <div
-                    class="bg-red-700 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
-                    <div class="absolute top-10 w-full h-full text-sm">Max Soil Moisture </div>
-                </div>
-                <!-- Max Nitrogen Circle -->
-                <div
-                    class="bg-red-700 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
-                    <div class="absolute top-10 w-full h-full text-sm">Max Nitrogen </div>
-                </div>
-                <!-- Max Phosphorus Circle -->
-                <div
-                    class="bg-red-700 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
-                    <div class="absolute top-10 w-full h-full text-sm">Max Phosphorus </div>
-                </div>
-                <!-- Max Potassium Circle -->
-                <div
-                    class="bg-red-700 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
-                    <div class="absolute top-10 w-full h-full text-sm">Max Potassium </div>
-                </div>
-            </div>
-            <div class="p-5 flex flex-col h-full justify-content-between text-wrap text-center align-items-center">
-                <h1 class="font-bold my-2">Minimum Values</h1>
-
-                <!-- Min To Circle -->
-                <div
-                    class="bg-yellow-400 my-3 relative overflow-hidden h-28 w-28 align-middle rounded-full border border-gray-200">
-                    <div class="absolute top-10 w-full h-full text-sm">Min To </div>
-                </div>
-                <!-- Min %RH Circle -->
-                <div
-                    class="bg-yellow-400 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
-                    <div class="absolute top-10 w-full h-full text-sm">Min % RH </div>
-                </div>
-
-                <!-- Min Soil Moisture Circle -->
-                <div
-                    class="bg-yellow-400 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
-                    <div class="absolute top-10 w-full h-full text-sm">Min Soil Moisture </div>
-                </div>
-
-                <!-- Min Nitrogen Circle -->
-                <div
-                    class="bg-yellow-400 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
-                    <div class="absolute top-10 w-full h-full text-sm">Min Nitrogen </div>
-                </div>
-
-                <!-- Min Phosphorus Circle -->
-                <div
-                    class="bg-yellow-400 my-3 overflow-hidden h-28 w-28 text-center relative  rounded-full border border-gray-200">
-                    <div class="absolute top-10 w-full h-full text-sm">Min Phosphorus </div>
-                </div>
-
-                <!-- Min Potassium Circle -->
-                <div
-                    class="bg-yellow-400 my-3 overflow-hidden h-28 w-28 text-center relative rounded-full border border-gray-200">
-                    <div class="absolute top-10 w-full h-full text-sm">Min Postassium </div>
-                </div>
-
             </div>
         </div>
-    </div>
     </div>
     <!-- Google chart API implementation -->
-    <div id="chart_div">
+    {{-- <div id="chart_div">
 
-    </div>
+    </div> --}}
 </body>
 
 </html>
