@@ -28,7 +28,7 @@
         }
         .blinker{
             animation: blink 2s linear infinite;
-            color: black;
+            color: red;
             transform: translate(-50%,-50%)
         }
         @keyframes blink{
@@ -42,21 +42,37 @@
             100%{opacity:1;}
         }
     </style>
+    <script>
+        var updateParameters = function(){
+            $.ajax({
+                url:"{{route('getPlantParameters')}}",
+                type: 'GET',
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        }
+        updateParameters();
+        setInterval(() => {
+            updateParameters();
+        }, 2000);
+    </script>
 </head>
 
 <body>
     <!-- Main display board -->
     <h1 class="mt-16 mb-8 text-center text-xl font-bold">Welcome To Indoor Plant Health Monitoring Dashboard</h1>
     <div class="columns-2 flex flex-row">
-        <div class="p-16 my-4 bg-blue-500 rounded-xl ml-16">
+        <div class="p-16 my-4 bg-gray-400 rounded-xl ml-16">
             <!-- Main parameters display -->
-            <div class="my-5 text-gray-200 rounded-full border border-gray-200 w-full p-3 text-center">
+            <div class="my-5 text-black-700 font-bold rounded-full border border-gray-200 w-full p-3 text-center">
                 Plant Health Parameters
             </div>
             <div class="columns-3 flex flex-row justify-between text-center">
                 <!-- Temperature Display -->
                 <div class="mx-2">
-                    <h1 class="font-bold text-sm">
+                    <h1 class="font-bold text-xs">
                         Ambient Temperature <br> (0C)
                     </h1>
                     <div class="w-36 h-24 min-w-60 rounded-xl border border-gray-200 p-4 bg-green-600">
@@ -65,7 +81,7 @@
                 </div>
                 <!-- Humidity Display -->
                 <div class="mx-2">
-                    <h1 class="font-bold text-sm">
+                    <h1 class="font-bold text-xs">
                         Ambient Humidity <br> (%RH)
                     </h1>
                     <div class="w-36 h-24 min-w-60 rounded-xl border border-gray-200 p-4 bg-blue-800">
@@ -74,10 +90,10 @@
                 </div>
                 <!-- Moisture Display -->
                 <div class="mx-2">
-                    <h1 class="font-bold text-sm">
+                    <h1 class="font-bold text-xs">
                         Soil Moisture <br> (%RH)
                     </h1>
-                    <div class="w-36 h-24 min-w-60 rounded-xl border border-gray-200 p-4 bg-gray-500">
+                    <div class="w-36 h-24 min-w-60 rounded-xl border border-gray-200 p-4 bg-gray-400">
                         <p class="text-wrap text-gray-200">{{$moisture}}</p>
                     </div>
                 </div>
@@ -85,13 +101,13 @@
 
             <!-- NPK Parameters display -->
 
-            <div class="my-5 text-gray-200 rounded-full border border-gray-200 w-full p-3 text-center ">
+            <div class="my-5 text-black-700 font-bold rounded-full border border-gray-200 w-full p-3 text-center ">
                 Soil Nitrogen-Phosphorus-Potassium (NPK) Contents
             </div>
             <!-- Nitrogen Display -->
             <div class="columns-3 flex flex-row justify-between text-center mb-6">
                 <div class="mx-2">
-                    <h1 class="font-bold text-sm">
+                    <h1 class="font-bold text-xs">
                         N(mg/Kg)
                     </h1>
                     <div class="w-36 h-24 min-w-60 rounded-xl border border-gray-200 p-4 bg-gray-600">
@@ -100,7 +116,7 @@
                 </div>
                 <!-- Phosphorus Display -->
                 <div class="mx-2">
-                    <h1 class="font-bold text-sm">
+                    <h1 class="font-bold text-xs">
                         P(mg/Kg)
                     </h1>
                     <div class="w-36 h-24 min-w-60 rounded-xl border border-gray-200 p-4 bg-gray-400">
@@ -109,7 +125,7 @@
                 </div>
                 <!-- Potassium Display -->
                 <div class="mx-2">
-                    <h1 class="font-bold text-sm">
+                    <h1 class="font-bold text-xs">
                         K(mg/Kg)
                     </h1>
                     <div class="w-36 h-24 min-w-60 rounded-xl border border-gray-200 p-4 bg-amber-600">
@@ -118,10 +134,10 @@
                 </div>
             </div>
             <hr>
-            <div class="my-5 text-gray-200 rounded-full border border-gray-200 w-full p-3 text-center ">
+            <div class="my-5 text-black-700 font-bold rounded-full border border-gray-200 w-full p-3 text-center ">
                 User Settings For Optimum Parameters
             </div>
-            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form class="bg-blue-500 shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <div class="mb-4">
                   <label class="text-gray-700 text-sm font-bold mb-2" for="MaxTemp">
                     Max Temperature (<sup>0</sup>C)
@@ -159,7 +175,7 @@
                 <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="MinMois" type="text" placeholder="Min Moisture">
                 </div>
                 <div class="flex items-center justify-between">
-                  <button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                  <button class="bg-green-500 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                     Update
                   </button>
                 </div>
@@ -167,12 +183,12 @@
         </div>
     
         <!-- Alerts display borad -->
-        <div class="p-16 my-4 bg-blue-500 rounded-xl mr-16 ml-4">
-            <div class="mt-5 p-3 text-gray-200 bg-blue-500 rounded-full border border-gray-200 w-full  text-center">
+        <div class="p-16 my-4 bg-gray-400 rounded-xl mr-16 ml-4">
+            <div class="mt-5 p-3 text-black-700 font-bold bg-gray-400 rounded-full border border-gray-200 w-full text-center">
                Make sure dashboard is clear of any alert for proper plant health!
             </div>
             <!-- Alert Indicators container -->
-            <div class="flex justify-between align-items-center p-5 bg-blue-500">
+            <div class="flex justify-between align-items-center p-5 bg-gray-400">
                 @if($MaxTemp==false && $MaxHum==false && $MaxMois==false && $MaxNit==false && $MaxPho==false && $MaxPot==false && $MinTemp==false && $MinHum==false && $MinMois==false && $MinNit==false && $MinPho==false && $MinPot==false)
                     <h1 class="font-bold my-2">Plant is in safety with no operational limits</h1>
                 @endif
@@ -286,5 +302,6 @@
 
     </div> --}}
 </body>
+
 
 </html>
